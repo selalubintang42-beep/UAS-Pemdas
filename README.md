@@ -15,7 +15,7 @@
 
 | No | Nama Anggota | NIM | Username GitHub | Link Pull Request |
 |---|---|---|---|---|
-| 1 | Haura Rifki | 263140707111013 | @haurarifki | Belum tersedia |
+| 1 | Haura Rifki | 263140707111013 | @haurarifki | [Belum tersedia](https://github.com/selalubintang42-beep/UAS-Pemdas/pull/8) |
 | 2 | Ardenta Dica Evanandy | 263140707111018 | @Ardenta-dica | Belum tersedia |
 | 3 | Nama Anggota 3 | NIM 3 | @username3 | Belum tersedia |
 
