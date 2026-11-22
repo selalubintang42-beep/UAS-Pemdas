@@ -1,11 +1,4 @@
-declare const require: (id: string) => any;
-const readline = require("readline");
-
-// Deklarasi process untuk lingkungan TypeScript yang belum memuat tipe Node.js.
-declare const process: {
-    stdin: any;
-    stdout: any;
-};
+import * as readline from "node:readline";
 
 // Membuat input terminal.
 const rl = readline.createInterface({
