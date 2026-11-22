@@ -6,7 +6,7 @@ console.log("Hello Console!");
 
 // Menampilkan informasi aplikasi
 console.log("==============================");
-console.log("   APLIKASI UAS TYPESCRIPT");
+console.log("   APLIKASI UAS PEMDAS");
 console.log("==============================");
 
 // Menampilkan status program
