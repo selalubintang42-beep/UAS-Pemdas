@@ -1,7 +1,7 @@
 
 ## Pembagian Tugas Anggota Kelompok
 
-| Progress | Anggota 1 | Anggota 2 | Anggota 3 |
+| Progress | Anggota 1 | Anggota 2 | Haura Rifki |
 |---|---|---|---|
 | **1 — 23 Nov** | Membuat repository Public, setup TypeScript, `tsconfig.json` | Membuat `.gitignore`, struktur awal `src/index.ts`, analisis entitas | Membuat README, proposal awal, pembagian tugas, dan kode Hello Console |
 | **2 — 27 Nov** | Membuat kerangka menu utama dengan `switch` dan loop | Membuat tipe data, variabel, array awal, dan fungsi dasar | Membuat flowchart, validasi menu, menerapkan kondisi `if` |
