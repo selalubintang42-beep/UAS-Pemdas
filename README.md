@@ -16,7 +16,7 @@
 | No | Nama Anggota | NIM | Username GitHub | Link Pull Request |
 |---|---|---|---|---|
 | 1 | Haura Rifki | 263140707111013 | @haurarifki | Belum tersedia |
-| 2 | Nama Anggota 2 | NIM 2 | @username2 | Belum tersedia |
+| 2 | Ardenta Dica Evanandy | 263140707111018 | @Ardenta-dica | Belum tersedia |
 | 3 | Nama Anggota 3 | NIM 3 | @username3 | Belum tersedia |
 
 ## Ketentuan Kolaborasi
