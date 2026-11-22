@@ -224,4 +224,4 @@ async function main() {
 }
 // Menjalankan program.
 main();
-//# sourceMappingURL=UTS-kasir-warkop.js.map
+//# sourceMappingURL=Indexs.js.map
