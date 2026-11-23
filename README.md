@@ -3,7 +3,7 @@
 
 | Progress | Bintang Bangkit Subandi | Ardenta Dica Evanandy | Haura Rifki |
 |---|---|---|---|
-| **1 — 23 Nov** | Membuat repository Public, setup TypeScript, `tsconfig.json` | Membuat `.gitignore`, struktur awal `src/index.ts`, analisis entitas | Membuat README, proposal awal, pembagian tugas, dan kode Hello Console |
+| **1 — 23 Nov** | Membuat README,Membuat repository Public` | Membuat `.gitignore`, struktur awal `src/index.ts`, analisis entitas, setup TypeScript, `tsconfig.json` |  proposal awal, pembagian tugas, dan kode Hello Console |
 | **2 — 27 Nov** | Membuat kerangka menu utama dengan `switch` dan loop | Membuat tipe data, variabel, array awal, dan fungsi dasar | Membuat flowchart, validasi menu, menerapkan kondisi `if` |
 | **3 — 30 Nov** | Membuat input data untuk fitur Create | Membuat validasi angka, harga, stok, dan data kosong | Membuat ID unik, penyimpanan `.push()`, pengujian Create |
 | **4 — 2 Des** | Membuat fungsi menampilkan semua data | Membuat fungsi detail berdasarkan ID dengan `find()` | Membuat penanganan data kosong/ID tidak ditemukan dan pengujian Read |
