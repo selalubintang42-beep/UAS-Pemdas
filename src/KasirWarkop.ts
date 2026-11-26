@@ -308,7 +308,7 @@ async function main(): Promise<void> {
         // IF untuk menentukan alur menu utama.
         if (pilihan === "1") {
             await transaksiKasir();
-
+        // Jika bukan pilihan 1 dan pilihannya 0 maka akan muncul terimakasih
         } else if (pilihan === "0") {
             console.log("Terima kasih!");
             berjalan = false;
