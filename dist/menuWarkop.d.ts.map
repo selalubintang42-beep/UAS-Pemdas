@@ -1,1 +1,1 @@
-{"version":3,"file":"menuWarkop.d.ts","sourceRoot":"","sources":["../src/menuWarkop.ts"],"names":[],"mappings":"AAAA,UAAU,UAAU;IAChB,EAAE,EAAE,MAAM,CAAC;IACX,IAAI,EAAE,MAAM,CAAC;IACb,KAAK,EAAE,MAAM,CAAC;IACd,QAAQ,EAAE,OAAO,CAAC;CACrB;AAGD,eAAO,MAAM,UAAU,EAAE,UAAU,EAKlC,CAAC"}
+{"version":3,"file":"menuWarkop.d.ts","sourceRoot":"","sources":["../src/menuWarkop.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,UAAU,EAAE,MAAM,eAAe,CAAC;AAE3C,eAAO,MAAM,UAAU,EAAE,UAAU,EAKlC,CAAC"}
