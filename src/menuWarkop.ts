@@ -1,4 +1,9 @@
-import { MenuWarkop } from "./KasirWarkop";
+interface MenuWarkop {
+    id: number;
+    nama: string;
+    harga: number;
+    tersedia: boolean;
+}
 
 // Menyimpan daftar menu awal dalam array.
 export const menuWarkop: MenuWarkop[] = [
