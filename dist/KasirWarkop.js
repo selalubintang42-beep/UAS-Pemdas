@@ -6,20 +6,17 @@ const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
-// Menyimpan daftar menu dan harga.
 const menuWarkop = {
     kopi: 8000,
     teh: 5000,
     "kopi susu": 12000,
     mie: 10000
 };
-// Menyimpan status member.
 const member = false;
 // Fungsi input pengguna.
 function tanya(teks) {
     return new Promise(resolve => rl.question(teks, resolve));
 }
-// Fungsi utama program.
 async function main() {
     console.log("\n=== KASIR WARKOP ===");
     // Menampilkan menu.
@@ -30,7 +27,6 @@ async function main() {
     const nama = await tanya("Nama: ");
     const menu = (await tanya("Pilih menu: ")).toLowerCase();
     const jumlah = Number(await tanya("Jumlah: "));
-    // IF 1: Validasi menu.
     if (!(menu in menuWarkop)) {
         console.log("Menu tidak tersedia!");
         rl.close();
@@ -44,7 +40,6 @@ async function main() {
     else {
         console.log("Menu ditemukan.");
     }
-    // IF 2: Validasi jumlah.
     if (jumlah <= 0 || jumlah > 100) {
         console.log("Jumlah tidak valid!");
         rl.close();
@@ -149,8 +144,7 @@ async function main() {
     // Menampilkan struk.
     console.log("\n=== STRUK WARKOP ===");
     console.log("Nama:", nama);
-    console.log("Menu:", menu, "-", jenis);
-    console.log("Jumlah:", jumlah);
+    console.log("Menu:", menuDipilih.nama, "-", jenis);
     console.log("Kategori:", kategori);
     console.log("Subtotal: Rp" + subtotal);
     console.log("Diskon:", pesan);
@@ -186,7 +180,6 @@ async function main() {
     else {
         console.log("Pembayaran tidak valid.");
     }
-    // Menutup terminal.
     rl.close();
 }
 // Menjalankan program.
