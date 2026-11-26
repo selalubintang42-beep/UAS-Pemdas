@@ -11,6 +11,6 @@ console.log("==============================");
 
 // Menampilkan status program
 console.log("Program berhasil dijalankan!");
-console.log("Semangat Belajar");
+console.log("Semangat Belajar yaaa");
             
 
