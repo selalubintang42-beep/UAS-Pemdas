@@ -39,48 +39,111 @@ const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
-// Menyimpan daftar menu dan harga.
-const menuWarkop = {
-    kopi: 8000,
-    teh: 5000,
-    "kopi susu": 12000,
-    mie: 10000
-};
+// Menyimpan daftar menu awal dalam array.
+const menuWarkop = [
+    { id: 1, nama: "kopi", harga: 8000, tersedia: true },
+    { id: 2, nama: "teh", harga: 5000, tersedia: true },
+    { id: 3, nama: "kopi susu", harga: 12000, tersedia: true },
+    { id: 4, nama: "mie", harga: 10000, tersedia: true }
+];
 // Menyimpan status member.
 const member = false;
 // Fungsi input pengguna.
 function tanya(teks) {
     return new Promise(resolve => rl.question(teks, resolve));
 }
-// Fungsi utama program.
-async function main() {
+// Fungsi menampilkan seluruh daftar menu.
+function tampilkanDaftarMenu() {
+    console.log("\n=== DAFTAR MENU WARKOP ===");
+    menuWarkop.forEach((menu) => {
+        console.log(`${menu.id}. ${menu.nama} - Rp${menu.harga}`);
+    });
+}
+// Fungsi mencari menu berdasarkan nama.
+function cariMenu(nama) {
+    return menuWarkop.find((menu) => menu.nama === nama.toLowerCase().trim());
+}
+// Fungsi memvalidasi nama pelanggan.
+function validasiNama(nama) {
+    return nama.trim() !== "";
+}
+// Fungsi memvalidasi pilihan menu.
+function validasiMenu(nama) {
+    const menu = cariMenu(nama);
+    return menu !== undefined && menu.tersedia;
+}
+// Fungsi memvalidasi jumlah pesanan.
+function validasiJumlah(jumlah) {
+    return Number.isInteger(jumlah) &&
+        jumlah > 0 &&
+        jumlah <= 100;
+}
+// Fungsi menampilkan menu utama.
+function tampilMenuUtama() {
+    console.log("\n=== KASIR WARKOP ===");
+    console.log("1. Pesan Menu");
+    console.log("0. Keluar");
+}
+// Fungsi transaksi kasir.
+async function transaksiKasir() {
     console.log("\n=== KASIR WARKOP ===");
     // Menampilkan menu.
-    for (const m of Object.keys(menuWarkop)) {
-        console.log(`${m} = Rp${menuWarkop[m]}`);
-    }
+    tampilkanDaftarMenu();
     // Input nama, menu, dan jumlah.
     const nama = await tanya("Nama: ");
-    const menu = (await tanya("Pilih menu: ")).toLowerCase();
-    const jumlah = Number(await tanya("Jumlah: "));
-    // IF 1: Validasi menu.
-    if (!(menu in menuWarkop)) {
-        console.log("Menu tidak tersedia!");
-        rl.close();
+    if (!validasiNama(nama)) {
+        console.log("Nama tidak boleh kosong!");
         return;
     }
-    else if (menu === "") {
-        console.log("Menu kosong!");
-        rl.close();
+    const menu = (await tanya("Pilih menu: ")).toLowerCase().trim();
+    const jumlah = Number(await tanya("Jumlah: "));
+    if (!validasiJumlah(jumlah)) {
+        console.log("Jumlah tidak valid!");
         return;
+    }
+    // ========================================
+    // BAGIAN TUGAS: IF PADA ALUR PEMILIHAN MENU
+    // ========================================
+    // IF MENU 1: Memeriksa input menu kosong.
+    if (menu === "") {
+        console.log("Menu tidak boleh kosong!");
+        return;
+    }
+    // IF MENU 2: Memeriksa ketersediaan menu.
+    // Kondisi majemuk dan nested tingkat 1.
+    if (menu === "kopi" ||
+        menu === "teh" ||
+        menu === "kopi susu" ||
+        menu === "mie") {
+        // IF MENU 3: Memeriksa kelompok menu kopi.
+        // Nested tingkat 2.
+        if (menu === "kopi" || menu === "kopi susu") {
+            // IF MENU 4: Menentukan pilihan kopi.
+            // Nested tingkat 3.
+            if (menu === "kopi") {
+                console.log("Menu kopi dipilih.");
+            }
+            else {
+                console.log("Menu kopi susu dipilih.");
+            }
+        }
+        else if (menu === "teh") {
+            console.log("Menu teh dipilih.");
+        }
+        else {
+            console.log("Menu mie dipilih.");
+        }
     }
     else {
-        console.log("Menu ditemukan.");
+        console.log("Menu tidak tersedia!");
+        return;
     }
+    // ========================================
+    // AKHIR BAGIAN TUGAS IF PEMILIHAN MENU
+    // ========================================
     // IF 2: Validasi jumlah.
     if (jumlah <= 0 || jumlah > 100) {
         console.log("Jumlah tidak valid!");
-        rl.close();
         return;
     }
     else if (jumlah > 0 && jumlah <= 100) {
@@ -88,16 +151,18 @@ async function main() {
     }
     else {
         console.log("Input salah.");
-        rl.close();
         return;
     }
-    // Menghitung subtotal.
-    const harga = menuWarkop[menu];
-    if (harga === undefined) {
+    // Mengambil data menu berdasarkan nama.
+    const dataMenu = cariMenu(menu);
+    // Memeriksa apakah menu ditemukan.
+    if (dataMenu === undefined) {
         console.log("Harga tidak ditemukan.");
-        rl.close();
         return;
     }
+    // Mengambil harga menu.
+    const harga = dataMenu.harga;
+    // Menghitung subtotal.
     const subtotal = harga * jumlah;
     // IF 3: Menentukan kategori pesanan.
     let kategori;
@@ -219,7 +284,27 @@ async function main() {
     else {
         console.log("Pembayaran tidak valid.");
     }
-    // Menutup terminal.
+}
+// Fungsi utama untuk menjalankan perulangan menu.
+async function main() {
+    let berjalan = true;
+    // Mengulang menu sampai pengguna memilih keluar.
+    while (berjalan) {
+        tampilMenuUtama();
+        const pilihan = await tanya("Pilih menu utama: ");
+        // IF untuk menentukan alur menu utama.
+        if (pilihan === "1") {
+            await transaksiKasir();
+        }
+        else if (pilihan === "0") {
+            console.log("Terima kasih!");
+            berjalan = false;
+        }
+        else {
+            console.log("Pilihan tidak valid!");
+        }
+    }
+    // Menutup terminal setelah pengguna keluar.
     rl.close();
 }
 // Menjalankan program.

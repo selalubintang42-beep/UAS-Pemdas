@@ -8,13 +8,21 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-// Menyimpan daftar menu dan harga.
-const menuWarkop: Record<string, number> = {
-    kopi: 8000,
-    teh: 5000,
-    "kopi susu": 12000,
-    mie: 10000
-};
+// Menentukan struktur data menu warkop.
+interface MenuWarkop {
+    id: number;
+    nama: string;
+    harga: number;
+    tersedia: boolean;
+}
+
+// Menyimpan daftar menu awal dalam array.
+const menuWarkop: MenuWarkop[] = [
+    { id: 1, nama: "kopi", harga: 8000, tersedia: true },
+    { id: 2, nama: "teh", harga: 5000, tersedia: true },
+    { id: 3, nama: "kopi susu", harga: 12000, tersedia: true },
+    { id: 4, nama: "mie", harga: 10000, tersedia: true }
+];
 
 // Menyimpan status member.
 const member: boolean = false;
@@ -22,6 +30,40 @@ const member: boolean = false;
 // Fungsi input pengguna.
 function tanya(teks: string): Promise<string> {
     return new Promise(resolve => rl.question(teks, resolve));
+}
+
+// Fungsi menampilkan seluruh daftar menu.
+function tampilkanDaftarMenu(): void {
+    console.log("\n=== DAFTAR MENU WARKOP ===");
+
+    menuWarkop.forEach((menu) => {
+        console.log(`${menu.id}. ${menu.nama} - Rp${menu.harga}`);
+    });
+}
+
+// Fungsi mencari menu berdasarkan nama.
+function cariMenu(nama: string): MenuWarkop | undefined {
+    return menuWarkop.find(
+        (menu) => menu.nama === nama.toLowerCase().trim()
+    );
+}
+
+// Fungsi memvalidasi nama pelanggan.
+function validasiNama(nama: string): boolean {
+    return nama.trim() !== "";
+}
+
+// Fungsi memvalidasi pilihan menu.
+function validasiMenu(nama: string): boolean {
+    const menu = cariMenu(nama);
+    return menu !== undefined && menu.tersedia;
+}
+
+// Fungsi memvalidasi jumlah pesanan.
+function validasiJumlah(jumlah: number): boolean {
+    return Number.isInteger(jumlah) &&
+           jumlah > 0 &&
+           jumlah <= 100;
 }
 
 // Fungsi menampilkan menu utama.
@@ -36,14 +78,20 @@ async function transaksiKasir(): Promise<void> {
     console.log("\n=== KASIR WARKOP ===");
 
     // Menampilkan menu.
-    for (const m of Object.keys(menuWarkop)) {
-        console.log(`${m} = Rp${menuWarkop[m]}`);
-    }
+    tampilkanDaftarMenu();
 
     // Input nama, menu, dan jumlah.
     const nama: string = await tanya("Nama: ");
-    const menu: string = await tanya("Pilih menu: ");
+        if (!validasiNama(nama)) {
+        console.log("Nama tidak boleh kosong!");
+        return;
+    }
+    const menu: string = (await tanya("Pilih menu: ")).toLowerCase().trim();
     const jumlah: number = Number(await tanya("Jumlah: "));
+        if (!validasiJumlah(jumlah)) {
+        console.log("Jumlah tidak valid!");
+        return;
+    }
 
     // ========================================
     // BAGIAN TUGAS: IF PADA ALUR PEMILIHAN MENU
@@ -105,14 +153,20 @@ async function transaksiKasir(): Promise<void> {
         return;
     }
 
-    // Menghitung subtotal.
-    const harga = menuWarkop[menu];
+    
+        // Mengambil data menu berdasarkan nama.
+    const dataMenu = cariMenu(menu);
 
-    if (harga === undefined) {
+    // Memeriksa apakah menu ditemukan.
+    if (dataMenu === undefined) {
         console.log("Harga tidak ditemukan.");
         return;
     }
 
+    // Mengambil harga menu.
+    const harga = dataMenu.harga;
+
+    // Menghitung subtotal.
     const subtotal: number = harga * jumlah;
 
     // IF 3: Menentukan kategori pesanan.
