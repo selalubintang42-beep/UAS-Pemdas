@@ -119,16 +119,16 @@ async function transaksiKasir(): Promise<void> {
             // IF MENU 4: Menentukan pilihan kopi.
             // Nested tingkat 3.
             if (menu === "kopi") {
-                console.log("Menu kopi dipilih.");
+                console.log("Menu kopi telah dipilih.");
             } else {
-                console.log("Menu kopi susu dipilih.");
+                console.log("Menu kopi susu telah dipilih.");
             }
 
         } else if (menu === "teh") {
-            console.log("Menu teh dipilih.");
+            console.log("Menu teh telah dipilih.");
 
         } else {
-            console.log("Menu mie dipilih.");
+            console.log("Menu mie telah dipilih.");
         }
 
     } else {
