@@ -44,7 +44,7 @@ const menuWarkop = [
     { id: 1, nama: "kopi", harga: 8000, tersedia: true },
     { id: 2, nama: "teh", harga: 5000, tersedia: true },
     { id: 3, nama: "kopi susu", harga: 12000, tersedia: true },
-    { id: 4, nama: "mie", harga: 10000, tersedia: true }
+    { id: 4, nama: "mie", harga: 10000, tersedia: true },
 ];
 //menentukan ID untuk menu baru
 let idBerikutnya = 5;
