@@ -46,6 +46,8 @@ const menuWarkop = [
     { id: 3, nama: "kopi susu", harga: 12000, tersedia: true },
     { id: 4, nama: "mie", harga: 10000, tersedia: true }
 ];
+//menentukan ID untuk menu baru
+let idBerikutnya = 5;
 // Menyimpan status member.
 const member = false;
 // Fungsi input pengguna.
@@ -62,6 +64,10 @@ function tampilkanDaftarMenu() {
 // Fungsi mencari menu berdasarkan nama.
 function cariMenu(nama) {
     return menuWarkop.find((menu) => menu.nama === nama.toLowerCase().trim());
+}
+// mencari menu bedasarkan ID
+function cariId(id) {
+    return menuWarkop.find(menu => menu.id === id);
 }
 // Fungsi memvalidasi nama pelanggan.
 function validasiNama(nama) {
@@ -80,9 +86,15 @@ function validasiJumlah(jumlah) {
 }
 // Fungsi menampilkan menu utama.
 function tampilMenuUtama() {
-    console.log("\n=== KASIR WARKOP ===");
-    console.log("1. Pesan Menu");
+    console.log("\n========== KASIR WARKOP ==========");
+    console.log("1. Create (Tambah Menu)");
+    console.log("2. Read (Lihat Menu)");
+    console.log("3. Update (Ubah Menu)");
+    console.log("4. Delete (Hapus Menu)");
+    console.log("5. Search (Cari Menu)");
+    console.log("6. Transaksi Kasir");
     console.log("0. Keluar");
+    console.log("==================================");
 }
 // Fungsi transaksi kasir.
 async function transaksiKasir() {
@@ -285,6 +297,151 @@ async function transaksiKasir() {
         console.log("Pembayaran tidak valid.");
     }
 }
+// ========================================
+// FITUR CREATE (MENAMBAHKAN MENU)
+// ========================================
+async function tambahMenu() {
+    const nama = (await tanya("Nama menu baru: ")).trim();
+    if (nama === "") {
+        console.log("Nama tidak boleh kosong!");
+        return;
+    }
+    if (cariMenu(nama)) {
+        console.log("Menu sudah ada!");
+        return;
+    }
+    const harga = Number(await tanya("Harga menu: "));
+    if (!Number.isFinite(harga) || harga <= 0) {
+        console.log("Harga tidak valid!");
+        return;
+    }
+    menuWarkop.push({
+        id: idBerikutnya,
+        nama: nama.toLowerCase(),
+        harga: harga,
+        tersedia: true
+    });
+    idBerikutnya++;
+    console.log("Menu berhasil ditambahkan!");
+}
+// ========================================
+// FITUR READ (MENAMPILKAN MENU)
+// ========================================
+async function bacaMenu() {
+    tampilkanDaftarMenu();
+    const inputId = await tanya("Masukkan ID untuk melihat detail (0 kembali): ");
+    if (inputId === "0")
+        return;
+    const menu = cariId(Number(inputId));
+    if (menu === undefined) {
+        console.log("Menu tidak ditemukan!");
+    }
+    else {
+        console.log("ID:", menu.id);
+        console.log("Nama:", menu.nama);
+        console.log("Harga: Rp" + menu.harga);
+        console.log("Tersedia:", menu.tersedia);
+    }
+}
+// ========================================
+// FITUR UPDATE (MENGUBAH MENU)
+// ========================================
+async function ubahMenu() {
+    tampilkanDaftarMenu();
+    const id = Number(await tanya("Masukkan ID menu: "));
+    const menu = cariId(id);
+    if (menu === undefined) {
+        console.log("Menu tidak ditemukan!");
+        return;
+    }
+    const namaBaru = (await tanya("Nama baru: ")).trim();
+    const hargaBaru = Number(await tanya("Harga baru: "));
+    if (namaBaru === "" || !Number.isFinite(hargaBaru) || hargaBaru <= 0) {
+        console.log("Input tidak valid!");
+        return;
+    }
+    const namaSudahAda = cariMenu(namaBaru);
+    if (namaSudahAda && namaSudahAda.id !== menu.id) {
+        console.log("Nama menu sudah digunakan!");
+        return;
+    }
+    menu.nama = namaBaru.toLowerCase();
+    menu.harga = hargaBaru;
+    console.log("Menu berhasil diperbarui!");
+}
+// ========================================
+// FITUR DELETE (MENGHAPUS MENU)
+// ========================================
+async function hapusMenu() {
+    tampilkanDaftarMenu();
+    const id = Number(await tanya("Masukkan ID menu yang ingin dihapus: "));
+    const index = menuWarkop.findIndex(menu => menu.id === id);
+    if (index === -1) {
+        console.log("Menu tidak ditemukan!");
+        return;
+    }
+    const konfirmasi = (await tanya("Yakin hapus menu? (Y/N): "))
+        .trim().toLowerCase();
+    if (konfirmasi === "y") {
+        menuWarkop.splice(index, 1);
+        console.log("Menu berhasil dihapus!");
+    }
+    else if (konfirmasi === "n") {
+        console.log("Penghapusan dibatalkan.");
+    }
+    else {
+        console.log("Konfirmasi tidak valid!");
+    }
+}
+// ========================================
+// FITUR SEARCH (MENCARI MENU)
+// ========================================
+async function cariDataMenu() {
+    const kataKunci = (await tanya("Masukkan nama menu: "))
+        .trim().toLowerCase();
+    if (kataKunci === "") {
+        console.log("Kata kunci tidak boleh kosong!");
+        return;
+    }
+    let hasil = menuWarkop.filter(menu => menu.nama.toLowerCase().includes(kataKunci));
+    console.log("\nPilih filter:");
+    console.log("1. Harga maksimal");
+    console.log("2. Status tersedia");
+    const filter = await tanya("Pilih filter: ");
+    if (filter === "1") {
+        const harga = Number(await tanya("Harga maksimal: "));
+        if (!Number.isFinite(harga) || harga < 0) {
+            console.log("Harga tidak valid!");
+            return;
+        }
+        hasil = hasil.filter(menu => menu.harga <= harga);
+    }
+    else if (filter === "2") {
+        const status = await tanya("Tersedia? (Y/N): ");
+        if (status.toLowerCase() === "y") {
+            hasil = hasil.filter(menu => menu.tersedia);
+        }
+        else if (status.toLowerCase() === "n") {
+            hasil = hasil.filter(menu => !menu.tersedia);
+        }
+        else {
+            console.log("Status tidak valid!");
+            return;
+        }
+    }
+    else {
+        console.log("Pilihan filter tidak valid!");
+        return;
+    }
+    if (hasil.length === 0) {
+        console.log("Menu tidak ditemukan!");
+    }
+    else {
+        hasil.forEach(menu => {
+            console.log(`ID: ${menu.id} | ${menu.nama} | Rp${menu.harga}`);
+        });
+    }
+}
 // Fungsi utama untuk menjalankan perulangan menu.
 async function main() {
     let berjalan = true;
@@ -292,16 +449,33 @@ async function main() {
     while (berjalan) {
         tampilMenuUtama();
         const pilihan = await tanya("Pilih menu utama: ");
-        // IF untuk menentukan alur menu utama.
-        if (pilihan === "1") {
-            await transaksiKasir();
-        }
-        else if (pilihan === "0") {
-            console.log("Terima kasih!");
-            berjalan = false;
-        }
-        else {
-            console.log("Pilihan tidak valid!");
+        // Menentukan pilihan menggunakan SWITCH.
+        switch (pilihan) {
+            case "1":
+                await tambahMenu();
+                break;
+            case "2":
+                await bacaMenu();
+                break;
+            case "3":
+                await ubahMenu();
+                break;
+            case "4":
+                await hapusMenu();
+                break;
+            case "5":
+                await cariDataMenu();
+                break;
+            case "6":
+                await transaksiKasir();
+                break;
+            case "0":
+                console.log("Terima kasih!");
+                berjalan = false;
+                break;
+            default:
+                console.log("Pilihan tidak valid!");
+                break;
         }
     }
     // Menutup terminal setelah pengguna keluar.
