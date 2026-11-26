@@ -1,3 +1,5 @@
+
+
 import * as readline from "node:readline";
 
 // Membuat input terminal.
@@ -22,8 +24,15 @@ function tanya(teks: string): Promise<string> {
     return new Promise(resolve => rl.question(teks, resolve));
 }
 
-// Fungsi utama program.
-async function main(): Promise<void> {
+// Fungsi menampilkan menu utama.
+function tampilMenuUtama(): void {
+    console.log("\n=== KASIR WARKOP ===");
+    console.log("1. Pesan Menu");
+    console.log("0. Keluar");
+}
+
+// Fungsi transaksi kasir.
+async function transaksiKasir(): Promise<void> {
     console.log("\n=== KASIR WARKOP ===");
 
     // Menampilkan menu.
@@ -33,46 +42,82 @@ async function main(): Promise<void> {
 
     // Input nama, menu, dan jumlah.
     const nama: string = await tanya("Nama: ");
-    const menu: string = (await tanya("Pilih menu: ")).toLowerCase();
+    const menu: string = await tanya("Pilih menu: ");
     const jumlah: number = Number(await tanya("Jumlah: "));
 
-    // IF 1: Validasi menu.
-    if (!(menu in menuWarkop)) {
-        console.log("Menu tidak tersedia!");
-        rl.close();
+    // ========================================
+    // BAGIAN TUGAS: IF PADA ALUR PEMILIHAN MENU
+    // ========================================
+
+    // IF MENU 1: Memeriksa input menu kosong.
+    if (menu === "") {
+        console.log("Menu tidak boleh kosong!");
         return;
-    } else if (menu === "") {
-        console.log("Menu kosong!");
-        rl.close();
-        return;
-    } else {
-        console.log("Menu ditemukan.");
     }
+
+    // IF MENU 2: Memeriksa ketersediaan menu.
+    // Kondisi majemuk dan nested tingkat 1.
+    if (
+        menu === "kopi" ||
+        menu === "teh" ||
+        menu === "kopi susu" ||
+        menu === "mie"
+    ) {
+
+        // IF MENU 3: Memeriksa kelompok menu kopi.
+        // Nested tingkat 2.
+        if (menu === "kopi" || menu === "kopi susu") {
+
+            // IF MENU 4: Menentukan pilihan kopi.
+            // Nested tingkat 3.
+            if (menu === "kopi") {
+                console.log("Menu kopi dipilih.");
+            } else {
+                console.log("Menu kopi susu dipilih.");
+            }
+
+        } else if (menu === "teh") {
+            console.log("Menu teh dipilih.");
+
+        } else {
+            console.log("Menu mie dipilih.");
+        }
+
+    } else {
+        console.log("Menu tidak tersedia!");
+        return;
+    }
+
+    // ========================================
+    // AKHIR BAGIAN TUGAS IF PEMILIHAN MENU
+    // ========================================
 
     // IF 2: Validasi jumlah.
     if (jumlah <= 0 || jumlah > 100) {
         console.log("Jumlah tidak valid!");
-        rl.close();
         return;
+
     } else if (jumlah > 0 && jumlah <= 100) {
         console.log("Jumlah valid.");
+
     } else {
         console.log("Input salah.");
-        rl.close();
         return;
     }
 
     // Menghitung subtotal.
     const harga = menuWarkop[menu];
+
     if (harga === undefined) {
         console.log("Harga tidak ditemukan.");
-        rl.close();
         return;
     }
+
     const subtotal: number = harga * jumlah;
 
     // IF 3: Menentukan kategori pesanan.
     let kategori: string;
+
     if (subtotal >= 100000) {
         kategori = "Besar";
     } else if (subtotal >= 50000) {
@@ -85,6 +130,7 @@ async function main(): Promise<void> {
 
     // IF 4: Menentukan diskon.
     let diskon: number;
+
     if (subtotal >= 100000 && member) {
         diskon = 15;
     } else if (subtotal >= 100000) {
@@ -99,6 +145,7 @@ async function main(): Promise<void> {
 
     // SWITCH 1: Menentukan jenis menu.
     let jenis: string;
+
     switch (menu) {
         case "kopi":
         case "kopi susu":
@@ -117,6 +164,7 @@ async function main(): Promise<void> {
 
     // SWITCH 2: Menentukan pesan diskon.
     let pesan: string;
+
     switch (diskon) {
         case 10:
             pesan = "Diskon 10%";
@@ -184,13 +232,39 @@ async function main(): Promise<void> {
         }
 
         console.log("Kembalian: Rp" + kembali);
+
     } else if (bayar >= 0 && bayar < total) {
         console.log("Uang kurang: Rp" + (total - bayar));
+
     } else {
         console.log("Pembayaran tidak valid.");
     }
+}
 
-    // Menutup terminal.
+// Fungsi utama untuk menjalankan perulangan menu.
+async function main(): Promise<void> {
+    let berjalan: boolean = true;
+
+    // Mengulang menu sampai pengguna memilih keluar.
+    while (berjalan) {
+        tampilMenuUtama();
+
+        const pilihan: string = await tanya("Pilih menu utama: ");
+
+        // IF untuk menentukan alur menu utama.
+        if (pilihan === "1") {
+            await transaksiKasir();
+
+        } else if (pilihan === "0") {
+            console.log("Terima kasih!");
+            berjalan = false;
+
+        } else {
+            console.log("Pilihan tidak valid!");
+        }
+    }
+
+    // Menutup terminal setelah pengguna keluar.
     rl.close();
 }
 
