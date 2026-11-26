@@ -33,6 +33,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+// Import node
 const readline = __importStar(require("node:readline"));
 // Membuat input terminal.
 const rl = readline.createInterface({
