@@ -9,7 +9,7 @@ const rl = readline.createInterface({
 });
 
 // Menentukan struktur data menu warkop.
-interface MenuWarkop {
+export interface MenuWarkop {
     id: number;
     nama: string;
     harga: number;
