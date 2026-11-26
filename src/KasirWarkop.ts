@@ -1,5 +1,5 @@
 
-
+// Import node
 import * as readline from "node:readline";
 
 // Membuat input terminal.
