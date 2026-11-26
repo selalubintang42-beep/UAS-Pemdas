@@ -17,7 +17,7 @@
 | No | Nama Anggota | NIM | Username GitHub | Link Pull Request |
 |---|---|---|---|---|
 | 1 | Haura Rifki | 263140707111013 | @haurarifki |https://github.com/selalubintang42-beep/UAS-Pemdas/pulls |
-| 2 | Ardenta Dica Evanandy | 263140707111018 | @Ardenta-dica | https://github.com/selalubintang42-beep/UAS-Pemdas/pulls |
+| 2 | Ardenta Dica Evanandy | 263140707111018 | @Ardenta-dica | https://github.com/selalubintang42-beep/UAS-Pemdas/pulls?q=is%3Apr+author%3AArdenta-dica |
 | 3 |BINTANG BANGKIT SUBANDI | 263140707111006 | @selalubintang42-beep | https://github.com/selalubintang42-beep/UAS-Pemdas/pulls|
 
 ## Ketentuan Kolaborasi
