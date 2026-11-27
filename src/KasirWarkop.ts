@@ -1,5 +1,4 @@
 
-
 // Import modul Node.js untuk input terminal.
 import * as readline from "node:readline";
 
