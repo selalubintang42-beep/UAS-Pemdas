@@ -27,9 +27,13 @@ const menuWarkop: MenuWarkop[] = [
 // Menyimpan status member.
 const member: boolean = false;
 
-// Fungsi input pengguna.
+// Fungsi menerima input dari pengguna.
 function tanya(teks: string): Promise<string> {
-    return new Promise(resolve => rl.question(teks, resolve));
+    return new Promise<string>((resolve) => {
+        rl.question(teks, (jawaban) => {
+            resolve(jawaban.trim());
+        });
+    });
 }
 
 // Fungsi menampilkan seluruh daftar menu.
