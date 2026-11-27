@@ -9,4 +9,5 @@ console.log("   APLIKASI UAS PEMDAS");
 console.log("==============================");
 // Menampilkan status program
 console.log("Program berhasil dijalankan!");
+console.log("Semangat Belajar yaaa");
 //# sourceMappingURL=Indeks.js.map
