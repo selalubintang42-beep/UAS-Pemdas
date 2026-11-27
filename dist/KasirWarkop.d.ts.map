@@ -1,1 +1,1 @@
-{"version":3,"file":"KasirWarkop.d.ts","sourceRoot":"","sources":["../src/KasirWarkop.ts"],"names":[],"mappings":"AAYA,MAAM,WAAW,UAAU;IACvB,EAAE,EAAE,MAAM,CAAC;IACX,IAAI,EAAE,MAAM,CAAC;IACb,KAAK,EAAE,MAAM,CAAC;IACd,QAAQ,EAAE,OAAO,CAAC;CACrB"}
+{"version":3,"file":"KasirWarkop.d.ts","sourceRoot":"","sources":["../src/KasirWarkop.ts"],"names":[],"mappings":"AAWA,MAAM,WAAW,UAAU;IACvB,EAAE,EAAE,MAAM,CAAC;IACX,IAAI,EAAE,MAAM,CAAC;IACb,KAAK,EAAE,MAAM,CAAC;IACd,QAAQ,EAAE,OAAO,CAAC;CACrB"}
