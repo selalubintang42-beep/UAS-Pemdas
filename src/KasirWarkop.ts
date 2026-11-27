@@ -36,9 +36,21 @@ function tanya(teks: string): Promise<string> {
 function tampilkanDaftarMenu(): void {
     console.log("\n=== DAFTAR MENU WARKOP ===");
 
-    menuWarkop.forEach((menu) => {
-        console.log(`${menu.id}. ${menu.nama} - Rp${menu.harga}`);
+    let jumlahMenu: number = 0;
+
+    // Menampilkan data dan menghitung jumlah menu.
+    menuWarkop.forEach((menu, index) => {
+        const nomorUrut: number = index + 1;
+
+        console.log(
+            `${nomorUrut}. ${menu.nama} - Rp${menu.harga} (ID: ${menu.id})`
+        );
+
+        jumlahMenu += 1;
     });
+
+    // Menampilkan jumlah seluruh jenis menu.
+    console.log("Jumlah jenis menu:", jumlahMenu);
 }
 
 // Fungsi mencari menu berdasarkan nama atau ID.
@@ -63,17 +75,24 @@ function validasiMenu(nama: string): boolean {
 
 // Fungsi memvalidasi jumlah pesanan.
 function validasiJumlah(jumlah: number): boolean {
-    return Number.isInteger(jumlah) &&
+    return jumlah % 1 === 0 &&
            jumlah > 0 &&
            jumlah <= 100;
 }
 
+
 // Fungsi menampilkan menu utama.
 function tampilMenuUtama(): void {
-    console.log("\n=== KASIR WARKOP ===");
-    console.log("1. Pesan Menu");
-    console.log("2. Lihat Daftar Menu");
+    console.log("\n========== KASIR WARKOP ==========");
+    console.log("1. Create (Tambah Menu)");
+    console.log("2. Read (Tampilkan Semua Menu)");
+    console.log("3. Read (Detail Menu berdasarkan ID)");
+    console.log("4. Update (Ubah Menu)");
+    console.log("5. Delete (Hapus Menu)");
+    console.log("6. Search (Cari dan Filter Menu)");
+    console.log("7. Transaksi Kasir");
     console.log("0. Keluar");
+    console.log("==================================");
 }
 
 // Fungsi transaksi kasir.
@@ -255,10 +274,17 @@ async function transaksiKasir(): Promise<void> {
             break;
     }
 
-    // Menghitung diskon dan total pembayaran.
-    const potongan: number = subtotal * diskon / 100;
+    // Menghitung diskon menggunakan compound assignment.
+    let potongan: number = subtotal;
+    potongan *= diskon;
+    potongan /= 100;
+
+    // Menghitung total pembayaran setelah diskon.
     let total: number = subtotal;
     total -= potongan;
+
+    // Menghitung harga satuan setelah diskon.
+    const hargaSetelahDiskon: number = total / jumlah;
 
     // Nested IF dua tingkat.
     if (diskon > 0) {
@@ -281,6 +307,7 @@ async function transaksiKasir(): Promise<void> {
     console.log("Subtotal: Rp" + subtotal);
     console.log("Diskon:", pesan);
     console.log("Total: Rp" + total);
+    console.log("Harga satuan setelah diskon: Rp" + hargaSetelahDiskon);
 
     // Input pembayaran.
     const bayar: number = Number(await tanya("Uang bayar: "));
@@ -323,6 +350,7 @@ async function transaksiKasir(): Promise<void> {
     }
 }
 
+
 // Fungsi utama untuk menjalankan perulangan menu.
 async function main(): Promise<void> {
     let berjalan: boolean = true;
@@ -339,14 +367,39 @@ async function main(): Promise<void> {
         // SWITCH untuk menentukan alur menu utama.
         switch (pilihan) {
 
-            // Menjalankan transaksi kasir.
+            // Kerangka fitur Create.
             case "1":
-                await transaksiKasir();
+                console.log("Fitur Tambah Menu dalam pengembangan.");
                 break;
 
             // Menampilkan seluruh daftar menu.
             case "2":
                 tampilkanDaftarMenu();
+                break;
+
+            // Kerangka fitur Read berdasarkan ID.
+            case "3":
+                console.log("Fitur Detail Menu dalam pengembangan.");
+                break;
+
+            // Kerangka fitur Update.
+            case "4":
+                console.log("Fitur Ubah Menu dalam pengembangan.");
+                break;
+
+            // Kerangka fitur Delete.
+            case "5":
+                console.log("Fitur Hapus Menu dalam pengembangan.");
+                break;
+
+            // Kerangka fitur Search dan Filter.
+            case "6":
+                console.log("Fitur Cari dan Filter dalam pengembangan.");
+                break;
+
+            // Menjalankan transaksi kasir.
+            case "7":
+                await transaksiKasir();
                 break;
 
             // Menghentikan perulangan menu utama.
@@ -362,9 +415,11 @@ async function main(): Promise<void> {
         }
     }
 
-    // Menutup terminal setelah pengguna memilih keluar.
+    // Menutup terminal setelah pengguna keluar.
     rl.close();
 }
 
 // Menjalankan program.
 main();
+
+    
