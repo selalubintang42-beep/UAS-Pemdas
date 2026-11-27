@@ -542,5 +542,5 @@ async function main(): Promise<void> {
     rl.close();
 }
 
-// menjalankan program
+// menjalankan program.
 main();
